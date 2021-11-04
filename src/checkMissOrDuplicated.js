@@ -1,22 +1,21 @@
-const errors = require('./constants');
-const process = require('process');
+const { PropertyRequiredError, PropertyDuplicatedError } = require('./customErrors');
 
 const checkMissOrDuplicated = (c, config, i, input, o, output) => {
+
   if (c == undefined && config == undefined) {
-    console.error("\x1b[31m", errors.configRequired);
-    process.exit(1);
+    throw new PropertyRequiredError('Config');
   }
+
   if (c != undefined && config != undefined || Array.isArray(c) || Array.isArray(config)) {
-    console.error("\x1b[31m", `Error: ${errors.configDuplicated}`);
-    process.exit(1);
+    throw new PropertyDuplicatedError('Config');
   }
+
   if (i != undefined && input != undefined || Array.isArray(i) || Array.isArray(input)) {
-    console.error("\x1b[31m", `Error: ${errors.inputDuplicated}`);
-    process.exit(1);
+    throw new PropertyDuplicatedError('Input file');
   }
+
   if (o != undefined && output != undefined || Array.isArray(o) || Array.isArray(output)) {
-    console.error("\x1b[31m", `Error: ${errors.outputDuplicated}`);
-    process.exit(1);
+    throw new PropertyDuplicatedError('Output file');
   }
 }
 

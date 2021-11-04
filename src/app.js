@@ -6,6 +6,7 @@ const { pipeline } = require('stream');
 const getConfiguration = require('./getConfiguration');
 const checkMissOrDuplicated = require('./checkMissOrDuplicated');
 const checkConfig = require('./checkConfig');
+const { ValidationError, ReadError, FileAccessError } = require('./customErrors');
 
 const App = () => {
 
@@ -13,7 +14,15 @@ const App = () => {
 
   const { '-c': c, '--config': config, '-i': i, '--input': input, '-o': o, '--output': output } = configuration;
 
-  checkMissOrDuplicated(c, config, i, input, o, output);
+  try {
+    checkMissOrDuplicated(c, config, i, input, o, output);
+  } catch (err) {
+    if (err instanceof ValidationError) {
+      throw new ReadError('Ошибка валидации', err);
+    } else {
+      throw err;
+    }
+  }
 
   const data = {
     conf: (config || c).split('-'),
@@ -21,9 +30,19 @@ const App = () => {
     output: output || o,
   };
 
-  checkConfig(data.conf);
+  try {
+    checkConfig(data.conf);
+  } catch (err) {
+    if (err instanceof ValidationError) {
+      throw new ReadError('Ошибка валидации', err);
+    } else {
+      throw err;
+    }
+  }
+
   checkFile(data.input);
   checkFile(data.output);
+
 
   const readable = data.input ? fs.createReadStream(data.input) : process.stdin;
   const transform = data.conf.map(element => new Transformer(element));
@@ -36,6 +55,7 @@ const App = () => {
     (err) => {
       if (err) {
         console.error("\x1b[31m", 'Pipeline failed.', err);
+        process.exit(1);
       } else {
         console.log("\x1b[32m", 'Pipeline succeeded.');
       }
@@ -44,4 +64,3 @@ const App = () => {
 }
 
 module.exports = App;
-

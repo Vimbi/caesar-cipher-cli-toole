@@ -1,8 +1,12 @@
 const fs = require('fs');
+const errors = require('./constants');
 
 const checkFile = (file) => {
   if (file) fs.access(file, fs.constants.F_OK, (err) => {
-    console.log(`${file} ${err ? 'cannot be accessed' : 'can be accessed'}`);
+    if (err) {
+      console.error("\x1b[31m", `${file} ${errors.noAccess}`);
+      process.exit(1);
+    }
   });
 }
 
