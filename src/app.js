@@ -1,12 +1,13 @@
 const process = require('process');
-const fs = require('fs');
 const Transformer = require('./transform');
 const checkFile = require('./checkFile');
 const { pipeline } = require('stream');
 const getConfiguration = require('./getConfiguration');
 const checkMissOrDuplicated = require('./checkMissOrDuplicated');
 const checkConfig = require('./checkConfig');
-const { ValidationError, ReadError, FileAccessError } = require('./customErrors');
+const { ValidationError, ReadError } = require('./customErrors');
+const MyReadable = require('./fileReadable');
+const MyWritable = require('./fileWritable');
 
 const App = () => {
 
@@ -43,10 +44,9 @@ const App = () => {
   checkFile(data.input);
   checkFile(data.output);
 
-
-  const readable = data.input ? fs.createReadStream(data.input) : process.stdin;
+  const readable = data.input ? new MyReadable(data.input) : process.stdin;
   const transform = data.conf.map(element => new Transformer(element));
-  const writable = data.output ? fs.createWriteStream(data.output, { flags: 'a' }) : process.stdout;
+  const writable = data.output ? new MyWritable(data.output) : process.stdout;
 
   pipeline(
     readable,

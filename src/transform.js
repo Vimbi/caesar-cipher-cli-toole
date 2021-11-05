@@ -25,14 +25,16 @@ class Transformer extends Transform {
   makeShift = (alphabet, letter) => {
     let index = 0;
     let result = '';
+    const rotN = (n = 1) => {
+      index = (alphabet.indexOf(letter) + this.direction * n) % 26;
+      result = alphabet.slice(index, index === -1 ? undefined : index + 1);
+    }
     switch (this.type) {
       case 'C':
-        index = (alphabet.indexOf(letter) + this.direction) % 26;
-        result = alphabet.slice(index, index === -1 ? undefined : index + 1);
+        rotN();
         break;
       case 'R':
-        index = (alphabet.indexOf(letter) + this.direction * 8) % 26;
-        result = alphabet.slice(index, index === -1 ? undefined : index + 1);
+        rotN(8);
         break;
       case 'A':
         index = alphabet.indexOf(letter);
