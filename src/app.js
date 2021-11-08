@@ -1,5 +1,4 @@
 const process = require('process');
-const Transformer = require('./transform');
 const checkFile = require('./checkFile');
 const { pipeline } = require('stream');
 const getConfiguration = require('./getConfiguration');
@@ -8,6 +7,7 @@ const checkConfig = require('./checkConfig');
 const { ValidationError, ReadError } = require('./customErrors');
 const MyReadable = require('./fileReadable');
 const MyWritable = require('./fileWritable');
+const selectTransform = require('./selectTransform');
 
 const App = () => {
 
@@ -45,7 +45,7 @@ const App = () => {
   checkFile(data.output);
 
   const readable = data.input ? new MyReadable(data.input) : process.stdin;
-  const transform = data.conf.map(element => new Transformer(element));
+  const transform = data.conf.map(element => selectTransform(element));
   const writable = data.output ? new MyWritable(data.output) : process.stdout;
 
   pipeline(

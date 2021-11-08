@@ -1,4 +1,4 @@
-const errors = require('./constants');
+const errors = require('./errorsText');
 
 class ReadError extends Error {
   constructor(message, cause) {
@@ -31,7 +31,7 @@ class PropertyDuplicatedError extends ValidationError {
 
 class ConfigPatternError extends ValidationError {
   constructor(property) {
-    super(`${property} ${errors.configNotValid}`);
+    super(`${errors.configNotValid} ${property}`);
     this.property = property;
   }
 }

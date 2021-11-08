@@ -1,5 +1,5 @@
 const fs = require('fs');
-const errors = require('./constants');
+const errors = require('./errorsText');
 
 const checkFile = (file) => {
   if (file) fs.access(file, fs.constants.F_OK, (err) => {
