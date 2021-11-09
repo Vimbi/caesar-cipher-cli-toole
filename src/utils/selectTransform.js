@@ -1,7 +1,7 @@
 
 const TransformAtbash = require('./transformAtbash');
 const TransformRot = require('./transformRot');
-const TransformCaesar = require('./transformCaesar');
+const TransformCaesar = require('../streams/transformCaesar');
 
 const selectTransform = (configElement) => {
   typeCipher = configElement[0];
