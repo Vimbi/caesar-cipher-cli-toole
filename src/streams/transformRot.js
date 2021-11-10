@@ -1,4 +1,4 @@
-const TransformCaesar = require('./streams/transformCaesar');
+const TransformCaesar = require('./transformCaesar');
 
 class TransformRot extends TransformCaesar {
   constructor(props) {

@@ -1,13 +1,17 @@
 const process = require('process');
-const checkFile = require('./checkFile');
+const checkFile = require('./checks/checkFile');
 const { pipeline } = require('stream');
 const getConfiguration = require('./utils/getConfiguration');
-const checkMissOrDuplicated = require('./checkMissOrDuplicated');
+const checkMissOrDuplicated = require('./checks/checkMissOrDuplicated');
 const checkConfig = require('./checks/checkConfig');
-const { ValidationError, ReadError } = require('./customErrors');
+const { ValidationError, ReadError } = require('./errors/customErrors');
 const MyReadable = require('./streams/fileReadable');
 const MyWritable = require('./streams/fileWritable');
 const selectTransform = require('./utils/selectTransform');
+
+const fs = require('fs');
+const { checkFileAccessError } = require('./errors/customErrors');
+const errors = require('./errors/errorsText');
 
 const App = () => {
 

@@ -1,5 +1,6 @@
 const { Writable } = require('stream');
 const fs = require('fs');
+
 class MyWritable extends Writable {
   constructor(filename) {
     super();

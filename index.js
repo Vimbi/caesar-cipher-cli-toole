@@ -1,5 +1,5 @@
 const app = require('./src/app');
-const { ReadError } = require('./src/customErrors');
+const { ReadError } = require('./src/errors/customErrors');
 
 try {
   app();

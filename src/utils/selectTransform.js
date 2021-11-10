@@ -1,6 +1,6 @@
 
-const TransformAtbash = require('./transformAtbash');
-const TransformRot = require('./transformRot');
+const TransformAtbash = require('../streams/transformAtbash');
+const TransformRot = require('../streams/transformRot');
 const TransformCaesar = require('../streams/transformCaesar');
 
 const selectTransform = (configElement) => {

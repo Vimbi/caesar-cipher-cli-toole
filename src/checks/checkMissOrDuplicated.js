@@ -1,4 +1,4 @@
-const { PropertyRequiredError, PropertyDuplicatedError } = require('./customErrors');
+const { PropertyRequiredError, PropertyDuplicatedError } = require('../errors/customErrors');
 
 const checkMissOrDuplicated = (c, config, i, input, o, output) => {
 

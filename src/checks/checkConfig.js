@@ -1,6 +1,4 @@
-const process = require('process');
-const errors = require('../errors/errorsText');
-const { ConfigPatternError } = require('../customErrors');
+const { ConfigPatternError } = require('../errors/customErrors');
 
 const paramsPatterns = ['C0', 'C1', 'R0', 'R1', 'A'];
 
