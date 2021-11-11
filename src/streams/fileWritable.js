@@ -1,5 +1,6 @@
 const { Writable } = require('stream');
 const fs = require('fs');
+const errors = require('../errors/errorsText');
 
 class MyWritable extends Writable {
   constructor(filename) {
@@ -11,7 +12,8 @@ class MyWritable extends Writable {
   _construct(callback) {
     fs.open(this.filename, 'a', (err, fd) => {
       if (err) {
-        callback(err);
+        console.error("\x1b[31m", `${this.filename} ${errors.noAccess}`);
+        process.exit(1);
       } else {
         this.fd = fd;
         callback();

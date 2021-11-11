@@ -2,7 +2,7 @@ const { access } = require('fs/promises');
 const { constants } = require('fs');
 const errors = require('../errors/errorsText');
 
-const checkFile = async (file) => {
+const checkFileAccess = async (file) => {
   try {
     if (file) await access(file, constants.R_OK | constants.W_OK)
   } catch (e) {
@@ -13,4 +13,4 @@ const checkFile = async (file) => {
   }
 }
 
-module.exports = checkFile;
+module.exports = checkFileAccess;

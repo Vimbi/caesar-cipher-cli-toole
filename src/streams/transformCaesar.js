@@ -22,7 +22,6 @@ class TransformCaesar extends Transform {
   }
 
   makeShift = (alphabet, letter) => {
-    // const direction = props[1] === '1' ? 1 : -1;
     const index = (alphabet.indexOf(letter) + this.direction * this.shift) % 26;
     const result = alphabet.slice(index, index === -1 ? undefined : index + 1);
     return result;
