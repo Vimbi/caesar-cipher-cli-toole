@@ -1,22 +1,21 @@
 const process = require('process');
-const checkFileAccess = require('./checks/checkFileAccess');
-const { pipeline } = require('stream');
+const { pipeline } = require('stream/promises');
 const getConfiguration = require('./utils/getConfiguration');
 const checkMissOrDuplicated = require('./checks/checkMissOrDuplicated');
 const checkConfig = require('./checks/checkConfig');
-const { ValidationError, ReadError } = require('./errors/customErrors');
+const { ValidationError, ReadError, FileAccessError } = require('./errors/customErrors');
 const MyReadable = require('./streams/fileReadable');
 const MyWritable = require('./streams/fileWritable');
 const selectTransform = require('./utils/selectTransform');
 
-const App = () => {
+const App = async () => {
 
   const configuration = getConfiguration(process.argv.slice(2));
 
   const { '-c': c, '--config': config, '-i': i, '--input': input, '-o': o, '--output': output } = configuration;
 
   try {
-    checkMissOrDuplicated(c, config, i, input, o, output);
+    await checkMissOrDuplicated(c, config, i, input, o, output);
   } catch (err) {
     if (err instanceof ValidationError) {
       throw new ReadError('Validation error', err);
@@ -32,7 +31,7 @@ const App = () => {
   };
 
   try {
-    checkConfig(data.conf);
+    await checkConfig(data.conf);
   } catch (err) {
     if (err instanceof ValidationError) {
       throw new ReadError('Validation error', err);
@@ -41,27 +40,24 @@ const App = () => {
     }
   }
 
-  const main = async () => {
-
-    await checkFileAccess(data.input);
-    await checkFileAccess(data.output);
-
-    pipeline(
+  try {
+    await pipeline(
       data.input ? new MyReadable(data.input) : process.stdin,
       ...data.conf.map(element => selectTransform(element)),
       data.output ? new MyWritable(data.output) : process.stdout,
-      (err) => {
-        if (err) {
-          console.error("\x1b[31m", 'Pipeline failed.', err);
-          process.exit(1);
-        } else {
-          console.log("\x1b[32m", 'Pipeline succeeded.');
-        }
-      }
-    );
+    ).catch(err => {
+      throw new FileAccessError(err);
+    });
+    console.log("\x1b[32m", 'Pipeline succeeded.');
+  } catch (err) {
+    if (err instanceof FileAccessError) {
+      throw new ReadError('Access error', err);
+    } else {
+      throw err;
+    }
   }
 
-  main();
+
 }
 
 module.exports = App;

@@ -4,7 +4,15 @@ class ReadError extends Error {
   constructor(message, cause) {
     super(message);
     this.cause = cause;
-    this.name = 'ReadError';
+    this.name = this.constructor.name;
+  }
+}
+
+class FileAccessError extends Error {
+  constructor(property) {
+    super(`${property} ${errors.noAccess}`);
+    this.property = property;
+    this.name = this.constructor.name;
   }
 }
 
@@ -38,8 +46,9 @@ class ConfigPatternError extends ValidationError {
 
 module.exports = {
   ReadError,
+  FileAccessError,
   ValidationError,
   PropertyRequiredError,
   PropertyDuplicatedError,
-  ConfigPatternError
+  ConfigPatternError,
 };
