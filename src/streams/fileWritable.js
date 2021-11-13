@@ -10,8 +10,10 @@ class MyWritable extends Writable {
   }
 
   _construct(callback) {
-    fs.open(this.filename)
-      .then(() => {
+    open(this.filename, (err, fd) => {
+      if (err) {
+        callback(this.filename);
+      } else {
         open(this.filename, 'a', (err, fd) => {
           if (err) {
             callback(this.filename);
@@ -19,9 +21,9 @@ class MyWritable extends Writable {
             this.fd = fd;
             callback();
           }
-        });
-      })
-      .catch((err) => callback(this.filename));
+        })
+      }
+    })
   }
 
   _write(chunk, encoding, callback) {
