@@ -1,4 +1,4 @@
-const getConfiguration = require('./getConfiguration');
+const getConfiguration = require('../../utils/getConfiguration');
 
 describe('getConfiguration', () => {
 

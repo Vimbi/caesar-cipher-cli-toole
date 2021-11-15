@@ -1,28 +1,17 @@
 const { Transform } = require('stream');
+const { ALPHABET_LENGTH, ALPHABET_UPPER_CASE, ALPHABET_LOWER_CASE } = require('../constants');
 
 class TransformCaesar extends Transform {
   constructor(props) {
     super(props);
     this.direction = +props?.[1] ? 1 : -1;
     this.shift = 1;
-    this.up = [
-      'A', 'B', 'C', 'D', 'E', 'F',
-      'G', 'H', 'I', 'J', 'K', 'L',
-      'M', 'N', 'O', 'P', 'Q', 'R',
-      'S', 'T', 'U', 'V', 'W', 'X',
-      'Y', 'Z'
-    ];
-    this.low = [
-      'a', 'b', 'c', 'd', 'e', 'f',
-      'g', 'h', 'i', 'j', 'k', 'l',
-      'm', 'n', 'o', 'p', 'q', 'r',
-      's', 't', 'u', 'v', 'w', 'x',
-      'y', 'z'
-    ];
+    this.up = ALPHABET_UPPER_CASE;
+    this.low = ALPHABET_LOWER_CASE;
   }
 
   makeShift = (alphabet, letter) => {
-    const index = (alphabet.indexOf(letter) + this.direction * this.shift) % 26;
+    const index = (alphabet.indexOf(letter) + this.direction * this.shift) % ALPHABET_LENGTH;
     const result = alphabet.slice(index, index === -1 ? undefined : index + 1);
     return result;
   }

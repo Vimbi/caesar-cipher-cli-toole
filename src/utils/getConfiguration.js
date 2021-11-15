@@ -1,10 +1,11 @@
-const paramsArr = ['-c', '--config', '-i', '--input', '-o', '--output'];
+const { PARAMETERS_ARRAY } = require('../constants');
+// const paramsArr = ['-c', '--config', '-i', '--input', '-o', '--output'];
 
 const getConfiguration = (argv) => {
   const resultConf = {};
 
   argv.forEach((element, index) => {
-    paramsArr.forEach(param => {
+    PARAMETERS_ARRAY.forEach(param => {
       if (element === param && argv[index + 1]) {
         if (resultConf[element]) {
           resultConf[element] = [...resultConf[element], argv[index + 1]];
