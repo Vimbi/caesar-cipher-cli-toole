@@ -1,12 +1,9 @@
 const process = require('process');
 const { pipeline } = require('stream/promises');
-const getConfiguration = require('./utils/getConfiguration');
-const checkMissOrDuplicated = require('./checks/checkMissOrDuplicated');
-const checkConfig = require('./checks/checkConfig');
+const { getConfiguration, selectTransform } = require('./utils');
+const { MyReadableStream, MyWritableStream } = require('./streams');
+const { checkMissOrDuplicated, checkConfig } = require('./checks');
 const { ValidationError, ReadError, FileAccessError } = require('./errors/customErrors');
-const MyReadable = require('./streams/fileReadable');
-const MyWritable = require('./streams/fileWritable');
-const selectTransform = require('./utils/selectTransform');
 
 const App = async () => {
 
@@ -42,9 +39,9 @@ const App = async () => {
 
   try {
     await pipeline(
-      data.input ? new MyReadable(data.input) : process.stdin,
+      data.input ? new MyReadableStream(data.input) : process.stdin,
       ...data.conf.map(element => selectTransform(element)),
-      data.output ? new MyWritable(data.output) : process.stdout,
+      data.output ? new MyWritableStream(data.output) : process.stdout,
     ).catch(err => {
       throw new FileAccessError(err);
     });

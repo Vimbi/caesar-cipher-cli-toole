@@ -1,4 +1,4 @@
-const MyWritable = require('../../streams/fileWritable');
+const MyWritable = require('../../streams/myWritableStream');
 
 describe('MyWritable', () => {
 

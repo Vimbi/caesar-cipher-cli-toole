@@ -2,7 +2,7 @@ const { Writable } = require('stream');
 const fs = require('fs/promises');
 const { open, write, close } = require('fs');
 
-class MyWritable extends Writable {
+class MyWritableStream extends Writable {
   constructor(filename) {
     super();
     this.filename = filename;
@@ -40,4 +40,4 @@ class MyWritable extends Writable {
   }
 }
 
-module.exports = MyWritable;
+module.exports = MyWritableStream;

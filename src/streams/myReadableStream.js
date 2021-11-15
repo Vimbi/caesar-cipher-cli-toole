@@ -1,7 +1,7 @@
 const fs = require('fs');
 const { Readable } = require('stream');
 
-class MyReadable extends Readable {
+class MyReadableStream extends Readable {
   constructor(filename) {
     super();
     this.filename = filename;
@@ -39,4 +39,4 @@ class MyReadable extends Readable {
   }
 }
 
-module.exports =  MyReadable;
+module.exports =  MyReadableStream;
