@@ -1,0 +1,11 @@
+{
+  "name": "ciphering-cli-tool",
+  "version": "1.0.0",
+  "description": "RS School NodeJS course",
+  "main": "index.js",
+  "scripts": {},
+  "author": "Vladimir Vildanov <i.am.vimbi@gmail.com>",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {}
+}
