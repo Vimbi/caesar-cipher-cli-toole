@@ -1,4 +1,3 @@
-
 const TransformAtbash = require('../streams/transformAtbash');
 const TransformRot = require('../streams/transformRot');
 const TransformCaesar = require('../streams/transformCaesar');

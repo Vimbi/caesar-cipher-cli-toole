@@ -3,9 +3,12 @@
   "version": "1.0.0",
   "description": "RS School NodeJS course",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test": "jest"
+  },
   "author": "Vladimir Vildanov <i.am.vimbi@gmail.com>",
   "license": "ISC",
-  "dependencies": {},
-  "devDependencies": {}
+  "devDependencies": {
+    "jest": "^27.3.1"
+  }
 }
