@@ -1,4 +1,5 @@
 const PARAMETERS_ARRAY = ['-c', '--config', '-i', '--input', '-o', '--output'];
+const PARAMETERS_PATTERNS = ['C0', 'C1', 'R0', 'R1', 'A'];
 const ALPHABET_LENGTH = 26;
 const ALPHABET_UPPER_CASE = [
   'A', 'B', 'C', 'D', 'E', 'F',
@@ -15,4 +16,9 @@ const ALPHABET_LOWER_CASE = [
   'y', 'z'
 ];
 
-module.exports = { PARAMETERS_ARRAY, ALPHABET_LENGTH, ALPHABET_UPPER_CASE, ALPHABET_LOWER_CASE };
+module.exports = {
+  PARAMETERS_ARRAY,
+  ALPHABET_LENGTH,
+  ALPHABET_UPPER_CASE,
+  ALPHABET_LOWER_CASE,
+  PARAMETERS_PATTERNS };

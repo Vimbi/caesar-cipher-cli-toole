@@ -45,7 +45,7 @@ const App = async () => {
     ).catch(err => {
       throw new FileAccessError(err);
     });
-    console.log("\x1b[32m", 'Pipeline succeeded.');
+    console.log("\x1b[32m%s\x1b[0m", 'Pipeline succeeded.');
   } catch (err) {
     if (err instanceof FileAccessError) {
       throw new ReadError('Access error', err);
@@ -53,8 +53,6 @@ const App = async () => {
       throw err;
     }
   }
-
-
 }
 
 module.exports = App;

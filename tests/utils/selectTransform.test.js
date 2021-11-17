@@ -1,7 +1,5 @@
-const selectTransform = require('../../utils/selectTransform');
-const TransformCaesar = require('../../streams/transformCaesar');
-const TransformRot = require('../../streams/transformRot');
-const TransformAtbash = require('../../streams/transformAtbash');
+const { selectTransform } = require('../../src/utils/index');
+const { TransformCaesar, TransformRot, TransformAtbash } = require('../../src/streams/index');
 
 describe('selectTransform', () => {
   it('should return new transformCaesar stream', () => {

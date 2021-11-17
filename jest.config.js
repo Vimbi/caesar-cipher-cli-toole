@@ -28,6 +28,7 @@ module.exports = {
     "**/*.js",
     "!**/node_modules/**",
     "!**/jest.config.js/**",
+    "!**/coverage/**",
     // "!src/index.tsx"
   ],
 

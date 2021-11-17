@@ -1,9 +1,8 @@
 const { ConfigPatternError } = require('../errors/customErrors');
-
-const paramsPatterns = ['C0', 'C1', 'R0', 'R1', 'A'];
+const { PARAMETERS_PATTERNS } = require('../constants.js');
 
 const checkConfig = (conf) => {
-  const exclude = conf.filter(element => !paramsPatterns.includes(element));
+  const exclude = conf.filter(element => !PARAMETERS_PATTERNS.includes(element));
   if (exclude.length > 0) throw new ConfigPatternError(exclude);
 }
 

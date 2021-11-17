@@ -1,4 +1,4 @@
-const errors = require('../../errors/errorsText');
+const errors = require('../../src/errors/errorsText');
 
 describe('Errors texts object', () => {
 
