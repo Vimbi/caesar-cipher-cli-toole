@@ -1,5 +1,4 @@
 const { PARAMETERS_ARRAY } = require('../constants');
-// const paramsArr = ['-c', '--config', '-i', '--input', '-o', '--output'];
 
 const getConfiguration = (argv) => {
   const resultConf = {};

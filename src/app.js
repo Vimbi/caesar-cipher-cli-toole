@@ -1,6 +1,6 @@
 const process = require('process');
 const { pipeline } = require('stream/promises');
-const { getConfiguration, selectTransform } = require('./utils');
+const { getConfiguration, selectTransform, main } = require('./utils');
 const { MyReadableStream, MyWritableStream } = require('./streams');
 const { checkMissOrDuplicated, checkConfig } = require('./checks');
 const { ValidationError, ReadError, FileAccessError } = require('./errors/customErrors');
@@ -38,11 +38,12 @@ const App = async () => {
   }
 
   try {
-    await pipeline(
-      data.input ? new MyReadableStream(data.input) : process.stdin,
-      ...data.conf.map(element => selectTransform(element)),
-      data.output ? new MyWritableStream(data.output) : process.stdout,
-    ).catch(err => {
+    // await pipeline(
+    //   data.input ? new MyReadableStream(data.input) : process.stdin,
+    //   ...data.conf.map(element => selectTransform(element)),
+    //   data.output ? new MyWritableStream(data.output) : process.stdout,
+    // )
+    await main(data).catch(err => {
       throw new FileAccessError(err);
     });
     console.log("\x1b[32m%s\x1b[0m", 'Pipeline succeeded.');
