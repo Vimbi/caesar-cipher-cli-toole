@@ -1,5 +1,5 @@
 const getConfiguration = require('./getConfiguration');
 const selectTransform = require('./selectTransform');
-const main = require('./main');
+const createPipeline = require('./createPipeline');
 
-module.exports = { getConfiguration, selectTransform, main };
+module.exports = { getConfiguration, selectTransform, createPipeline };

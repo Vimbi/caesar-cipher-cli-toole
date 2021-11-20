@@ -1,33 +1,23 @@
 const fs = require('fs');
 const { MyReadableStream } = require('../../src/streams');
-// const app = require('../../src/app');
-const { PassThrough } = require('stream');
+const { createPipeline } = require('../../src/utils');
 
 describe('MyReadable', () => {
 
-  test('to be defined', () => {
+  it('to be defined', () => {
     expect(new MyReadableStream('')).toBeDefined();
   });
 
-  // test('plays video', () => {
-  //   const mockReadable = new PassThrough();
-  //   const mockFilePath = './file.txt'
-  //   const spy = jest.spyOn(fs, 'open');
-  //   let openFileCallback;
-  //   spy.mockImplementation((path, options, callback) => {
-  //     openFileCallback = callback;
-  //   });
-
-    // const readable = new MyReadableStream(mockFilePath);
-
-
-
-    // // readable()
-    // const isPlaying = video.play();
-
-    // expect(spy).toHaveBeenCalled();
-    // expect(isPlaying).toBe(true);
-
-    // spy.mockRestore();
-  // });
+  it('to have been called fs.{open,read,close} ', async () => {
+    const spyOpen = jest.spyOn(fs, 'open');
+    const spyRead = jest.spyOn(fs, 'read');
+    const spyClose = jest.spyOn(fs, 'close');
+    await createPipeline({conf: ['C1','C0','A'], input: 'input.txt', output: 'output.txt'});
+    expect(spyOpen).toHaveBeenCalled();
+    expect(spyRead).toHaveBeenCalled();
+    expect(spyClose).toHaveBeenCalled();
+    spyOpen.mockRestore();
+    spyRead.mockRestore();
+    spyClose.mockRestore();
+  });
 })

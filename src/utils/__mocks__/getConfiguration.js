@@ -1,5 +1,5 @@
-const getConfiguration = (argv) => {
-  return {'-c': 'A', '-i': 'input.txt'}
+const getConfiguration = () => {
+  return {'-c': 'A', '-i': 'input.txt', '-o': 'output.txt'}
 };
 
 module.exports = getConfiguration;

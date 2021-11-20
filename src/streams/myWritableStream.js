@@ -1,5 +1,4 @@
 const { Writable } = require('stream');
-const fs = require('fs/promises');
 const { open, write, close } = require('fs');
 
 class MyWritableStream extends Writable {
@@ -28,7 +27,6 @@ class MyWritableStream extends Writable {
 
   _write(chunk, encoding, callback) {
     write(this.fd, chunk, callback);
-
   }
 
   _destroy(err, callback) {
