@@ -14,7 +14,6 @@ describe('MyWritable', () => {
     const spyClose = jest.spyOn(fs, 'close');
     await createPipeline({conf: ['C1','C0','A'], input: 'input.txt', output: 'output.txt'});
     expect(spyOpen).toHaveBeenCalled();
-    // expect(spyWrite).toHaveBeenCalled();
     expect(spyClose).toHaveBeenCalled();
     spyOpen.mockRestore();
     spyWrite.mockRestore();

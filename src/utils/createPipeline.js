@@ -8,7 +8,6 @@ const createPipeline = async (data) => {
     ...data.conf.map(element => selectTransform(element)),
     data.output ? new MyWritableStream(data.output) : process.stdout,
   );
-  // console.log("\x1b[32m%s\x1b[0m", 'Pipeline succeeded.');
 };
 
 module.exports = createPipeline;

@@ -1,6 +1,6 @@
 const { spawn } = require('child_process');
 const app = require('../src/app');
-// jest.mock('../src/app');
+const { ReadError } = require('../src/errors/customErrors');
 jest.mock('../src/utils/getConfiguration.js');
 
 describe('App', () => {
@@ -61,12 +61,18 @@ describe('App', () => {
     await expect(app()).resolves.toBe();
   })
 
-  it('should to be truthy', async () => {
-    await jest.mock('../src/utils/getConfiguration.js', () => {
-      return {'-c': ['A','C1'], '-i': 'input.txt', '-o': 'output.txt'}
-    });
+  it('should to be throw "Validation error"', async () => {
     await expect(app).toBeTruthy();
-    await expect(app()).resolves.toBe();
-    await expect(() => {app()}).toThrow();
+    await expect(app()).rejects.toThrow('Validation error');
+  })
+
+  it('should to be throw ReadError', async () => {
+    await expect(app).toBeTruthy();
+    await expect(app()).rejects.toThrow(ReadError);
+  })
+
+  it('should to be throw "Access error"', async () => {
+    await expect(app).toBeTruthy();
+    await expect(app()).rejects.toThrow('Access error');
   })
 })
